@@ -1,0 +1,444 @@
+# ==============================================================================
+#  Manifeste-SHA256.ps1
+#  Outil de generation et verification de manifestes SHA-256
+#  pour transfert securise de donnees sur support chiffre.
+# ==============================================================================
+
+# ---- Fonctions utilitaires ---------------------------------------------------
+
+function Show-Header {
+    Clear-Host
+    Write-Host ""
+    Write-Host "  ================================================================" -ForegroundColor Cyan
+    Write-Host "   MANIFESTE SHA-256  —  Transfert securise de donnees" -ForegroundColor Cyan
+    Write-Host "  ================================================================" -ForegroundColor Cyan
+    Write-Host ""
+}
+
+function Show-Menu {
+    Show-Header
+    Write-Host "   Choisissez une option :" -ForegroundColor White
+    Write-Host ""
+    Write-Host "   [1]  Generer un manifeste" -ForegroundColor Green
+    Write-Host "   [2]  Verifier un manifeste" -ForegroundColor Yellow
+    Write-Host "   [3]  Manuel d'utilisation" -ForegroundColor Cyan
+    Write-Host "   [4]  Credits" -ForegroundColor DarkGray
+    Write-Host "   [5]  Quitter" -ForegroundColor DarkGray
+    Write-Host ""
+    Write-Host "  ----------------------------------------------------------------" -ForegroundColor DarkGray
+}
+
+function Pause-Retour {
+    Write-Host ""
+    Write-Host "  Appuyez sur ENTREE pour revenir au menu..." -ForegroundColor DarkGray
+    Read-Host | Out-Null
+}
+
+# ---- Option 1 : Generer un manifeste -----------------------------------------
+
+function Invoke-GenererManifeste {
+    Show-Header
+    Write-Host "  GENERATION DU MANIFESTE SHA-256" -ForegroundColor Green
+    Write-Host "  ----------------------------------------------------------------" -ForegroundColor DarkGray
+    Write-Host ""
+
+    # Saisie du chemin source
+    Write-Host "  Chemin source (disque ou dossier a hacher)" -ForegroundColor White
+    Write-Host "  Exemple : I:\"  -ForegroundColor DarkGray
+    $source = (Read-Host "  > ").Trim()
+
+    if (-not (Test-Path $source)) {
+        Write-Host ""
+        Write-Host "  ERREUR : '$source' introuvable." -ForegroundColor Red
+        Write-Host "  Verifiez que le disque est connecte et deverrouille." -ForegroundColor Red
+        Pause-Retour
+        return
+    }
+
+    # Saisie du chemin de sortie
+    Write-Host ""
+    Write-Host "  Chemin complet du fichier manifeste a creer" -ForegroundColor White
+    Write-Host "  Exemple : D:\manifeste_SHA256.txt" -ForegroundColor DarkGray
+    $sortie = (Read-Host "  > ").Trim()
+
+    if ([string]::IsNullOrWhiteSpace($sortie)) {
+        Write-Host ""
+        Write-Host "  ERREUR : Chemin de sortie invalide." -ForegroundColor Red
+        Pause-Retour
+        return
+    }
+
+    # Creer le dossier de sortie si necessaire
+    $dossierSortie = Split-Path -Parent $sortie
+    if ($dossierSortie -and -not (Test-Path $dossierSortie)) {
+        New-Item -ItemType Directory -Path $dossierSortie -Force | Out-Null
+    }
+
+    Write-Host ""
+    Write-Host "  Inventaire des fichiers..." -ForegroundColor Yellow
+    $fichiers = Get-ChildItem -Path $source -Recurse -File -ErrorAction SilentlyContinue
+    $total    = $fichiers.Count
+
+    if ($total -eq 0) {
+        Write-Host "  ERREUR : Aucun fichier trouve dans '$source'." -ForegroundColor Red
+        Pause-Retour
+        return
+    }
+
+    Write-Host "  $total fichier(s) trouve(s). Debut du hachage..." -ForegroundColor Green
+    Write-Host ""
+
+    $compteur = 0
+    $debut    = Get-Date
+
+    $fichiers | ForEach-Object {
+        $compteur++
+        $hash = (certutil -hashfile $_.FullName SHA256)[1]
+        "$hash  $($_.FullName)"
+
+        $pct    = [int](($compteur / $total) * 100)
+        $ecoule = (Get-Date) - $debut
+        if ($compteur -gt 1) {
+            $restantSec   = [int](($total - $compteur) * ($ecoule.TotalSeconds / $compteur))
+            $tempsRestant = "{0}m {1}s" -f [int]($restantSec / 60), ($restantSec % 60)
+        } else {
+            $tempsRestant = "calcul en cours..."
+        }
+
+        Write-Progress `
+            -Activity        "Generation du manifeste SHA-256" `
+            -Status          "Fichier $compteur / $total  —  Reste : $tempsRestant" `
+            -CurrentOperation $_.FullName `
+            -PercentComplete $pct
+
+    } | Out-File $sortie -Encoding UTF8
+
+    Write-Progress -Activity "Generation du manifeste SHA-256" -Completed
+
+    # Rapport
+    $duree = (Get-Date) - $debut
+    Write-Host "  ----------------------------------------------------------------" -ForegroundColor DarkGray
+    Write-Host "  TERMINE" -ForegroundColor Green
+    Write-Host "  Fichiers traites : $total" -ForegroundColor White
+    Write-Host "  Duree            : $([int]$duree.TotalMinutes)m $($duree.Seconds)s" -ForegroundColor White
+    Write-Host "  Manifeste        : $sortie" -ForegroundColor White
+    Write-Host ""
+
+    # Empreinte du manifeste — a transmettre au destinataire
+    $hashManifeste = (certutil -hashfile $sortie SHA256)[1].Trim()
+    Write-Host "  ----------------------------------------------------------------" -ForegroundColor DarkGray
+    Write-Host "  EMPREINTE SHA-256 DU MANIFESTE (a transmettre au destinataire)" -ForegroundColor Cyan
+    Write-Host ""
+    Write-Host "  $hashManifeste" -ForegroundColor Yellow
+    Write-Host ""
+    Write-Host "  Transmettez cette empreinte via canal securise" -ForegroundColor DarkGray
+    Write-Host "  (Signal, verbal) — separement du disque dur." -ForegroundColor DarkGray
+    Write-Host "  ----------------------------------------------------------------" -ForegroundColor DarkGray
+
+    Pause-Retour
+}
+
+# ---- Option 2 : Verifier un manifeste ----------------------------------------
+
+function Invoke-VerifierManifeste {
+    Show-Header
+    Write-Host "  VERIFICATION D'INTEGRITE DU DISQUE" -ForegroundColor Yellow
+    Write-Host "  ----------------------------------------------------------------" -ForegroundColor DarkGray
+    Write-Host ""
+
+    # Saisie du disque a verifier
+    Write-Host "  Chemin du disque ou dossier a verifier" -ForegroundColor White
+    Write-Host "  Exemple : E:\" -ForegroundColor DarkGray
+    $disque = (Read-Host "  > ").Trim()
+
+    if (-not (Test-Path $disque)) {
+        Write-Host ""
+        Write-Host "  ERREUR : '$disque' introuvable." -ForegroundColor Red
+        Write-Host "  Verifiez que le disque est connecte et deverrouille par BitLocker." -ForegroundColor Red
+        Pause-Retour
+        return
+    }
+
+    # Saisie du chemin du manifeste de reference
+    Write-Host ""
+    Write-Host "  Chemin du manifeste de reference (recu de l'expediteur)" -ForegroundColor White
+    Write-Host "  Exemple : C:\manifeste_SHA256.txt" -ForegroundColor DarkGray
+    $manifestRef = (Read-Host "  > ").Trim()
+
+    if (-not (Test-Path $manifestRef)) {
+        Write-Host ""
+        Write-Host "  ERREUR : '$manifestRef' introuvable." -ForegroundColor Red
+        Pause-Retour
+        return
+    }
+
+    # Saisie de l'empreinte du manifeste transmise par l'expediteur
+    Write-Host ""
+    Write-Host "  Empreinte SHA-256 du manifeste (transmise par l'expediteur)" -ForegroundColor White
+    Write-Host "  Collez la valeur recue via canal securise :" -ForegroundColor DarkGray
+    $empreinteRecue = (Read-Host "  > ").Trim()
+
+    # Calcul et comparaison automatique de l'empreinte
+    Write-Host ""
+    Write-Host "  Verification de l'empreinte du manifeste..." -ForegroundColor Yellow
+    $empreinteCalculee = (certutil -hashfile $manifestRef SHA256)[1].Trim()
+
+    if ($empreinteCalculee -ne $empreinteRecue) {
+        Write-Host ""
+        Write-Host "  ============================================" -ForegroundColor Red
+        Write-Host "   ALERTE : LE MANIFESTE A ETE ALTERE" -ForegroundColor Red
+        Write-Host "  ============================================" -ForegroundColor Red
+        Write-Host ""
+        Write-Host "  Empreinte recue    : $empreinteRecue" -ForegroundColor Red
+        Write-Host "  Empreinte calculee : $empreinteCalculee" -ForegroundColor Red
+        Write-Host ""
+        Write-Host "  Le fichier manifeste ne correspond pas a l'empreinte" -ForegroundColor Red
+        Write-Host "  transmise par l'expediteur. Ne pas utiliser ces donnees." -ForegroundColor Red
+        Pause-Retour
+        return
+    }
+
+    Write-Host "  Empreinte du manifeste : VALIDE" -ForegroundColor Green
+    Write-Host ""
+
+    # Chargement du manifeste de reference
+    Write-Host "  Chargement du manifeste de reference..." -ForegroundColor Yellow
+    $lignesRef = Get-Content $manifestRef -Encoding UTF8 | Where-Object { $_ -match '\S' }
+
+    $lookupRef = @{}
+    foreach ($ligne in $lignesRef) {
+        $parts = $ligne -split '\s+', 2
+        if ($parts.Count -eq 2) {
+            $hash          = $parts[0].Trim()
+            $cheminRelatif = ($parts[1].Trim()) -replace '^[A-Za-z]:\\', ''
+            $lookupRef[$cheminRelatif] = $hash
+        }
+    }
+
+    $totalRef = $lookupRef.Count
+    Write-Host "  $totalRef fichier(s) dans le manifeste de reference." -ForegroundColor Green
+
+    # Inventaire du disque
+    Write-Host ""
+    Write-Host "  Inventaire du disque recu..." -ForegroundColor Yellow
+    $fichiers    = Get-ChildItem -Path $disque -Recurse -File -ErrorAction SilentlyContinue
+    $totalDisque = $fichiers.Count
+    Write-Host "  $totalDisque fichier(s) present(s) sur le disque." -ForegroundColor Green
+    Write-Host ""
+
+    # Recalcul et comparaison
+    Write-Host "  Recalcul SHA-256 et comparaison..." -ForegroundColor Yellow
+    Write-Host ""
+
+    $compteur  = 0
+    $okCount   = 0
+    $erreurs   = [System.Collections.Generic.List[string]]::new()
+    $manquants = [System.Collections.Generic.List[string]]::new()
+    $debut     = Get-Date
+
+    foreach ($fichier in $fichiers) {
+        $compteur++
+
+        $hashCalcule   = (certutil -hashfile $fichier.FullName SHA256)[1].Trim()
+        $cheminRelatif = $fichier.FullName -replace '^[A-Za-z]:\\', ''
+
+        if ($lookupRef.ContainsKey($cheminRelatif)) {
+            if ($hashCalcule -eq $lookupRef[$cheminRelatif]) {
+                $okCount++
+            } else {
+                $erreurs.Add("  [HASH DIFFERENT] $($fichier.FullName)")
+            }
+        } else {
+            $manquants.Add("  [ABSENT DU MANIFESTE] $($fichier.FullName)")
+        }
+
+        $pct    = [int](($compteur / [math]::Max($totalDisque, 1)) * 100)
+        $ecoule = (Get-Date) - $debut
+        if ($compteur -gt 1) {
+            $restantSec   = [int](($totalDisque - $compteur) * ($ecoule.TotalSeconds / $compteur))
+            $tempsRestant = "{0}m {1}s" -f [int]($restantSec / 60), ($restantSec % 60)
+        } else {
+            $tempsRestant = "calcul en cours..."
+        }
+
+        Write-Progress `
+            -Activity        "Verification SHA-256" `
+            -Status          "Fichier $compteur / $totalDisque  —  OK: $okCount  Erreurs: $($erreurs.Count)  Reste: $tempsRestant" `
+            -CurrentOperation $fichier.FullName `
+            -PercentComplete $pct
+    }
+
+    Write-Progress -Activity "Verification SHA-256" -Completed
+
+    # Fichiers dans le manifeste mais absents du disque
+    $absents = [System.Collections.Generic.List[string]]::new()
+    foreach ($cheminRelatif in $lookupRef.Keys) {
+        $cheminComplet = $disque.TrimEnd('\') + '\' + $cheminRelatif
+        if (-not (Test-Path $cheminComplet)) {
+            $absents.Add("  [FICHIER MANQUANT] $cheminComplet")
+        }
+    }
+
+    # Rapport final
+    $duree          = (Get-Date) - $debut
+    $totalProblemes = $erreurs.Count + $manquants.Count + $absents.Count
+
+    Write-Host ""
+    if ($totalProblemes -eq 0) {
+        Write-Host "  ============================================" -ForegroundColor Green
+        Write-Host "   INTEGRITE CONFIRMEE - AUCUNE ANOMALIE" -ForegroundColor Green
+        Write-Host "  ============================================" -ForegroundColor Green
+        Write-Host ""
+        Write-Host "  Fichiers verifies : $okCount / $totalRef" -ForegroundColor White
+        Write-Host "  Anomalies         : 0" -ForegroundColor Green
+        Write-Host "  Duree             : $([int]$duree.TotalMinutes)m $($duree.Seconds)s" -ForegroundColor White
+        Write-Host ""
+        Write-Host "  Le transfert est integre." -ForegroundColor Green
+    } else {
+        Write-Host "  ============================================" -ForegroundColor Red
+        Write-Host "   ANOMALIES DETECTEES" -ForegroundColor Red
+        Write-Host "  ============================================" -ForegroundColor Red
+        Write-Host ""
+        Write-Host "  Fichiers OK             : $okCount / $totalRef" -ForegroundColor White
+        Write-Host "  Hash differents         : $($erreurs.Count)" -ForegroundColor Red
+        Write-Host "  Absents du manifeste    : $($manquants.Count)" -ForegroundColor Yellow
+        Write-Host "  Manquants sur le disque : $($absents.Count)" -ForegroundColor Yellow
+        Write-Host "  Duree                   : $([int]$duree.TotalMinutes)m $($duree.Seconds)s" -ForegroundColor White
+        Write-Host ""
+
+        if ($erreurs.Count -gt 0) {
+            Write-Host "  --- Hash differents ---" -ForegroundColor Red
+            $erreurs | Select-Object -First 10 | ForEach-Object { Write-Host $_ -ForegroundColor Red }
+            if ($erreurs.Count -gt 10) { Write-Host "  ... et $($erreurs.Count - 10) autre(s)." -ForegroundColor Red }
+            Write-Host ""
+        }
+        if ($absents.Count -gt 0) {
+            Write-Host "  --- Fichiers manquants sur le disque ---" -ForegroundColor Yellow
+            $absents | Select-Object -First 10 | ForEach-Object { Write-Host $_ -ForegroundColor Yellow }
+            Write-Host ""
+        }
+        if ($manquants.Count -gt 0) {
+            Write-Host "  --- Fichiers non repertories dans le manifeste ---" -ForegroundColor Yellow
+            $manquants | Select-Object -First 10 | ForEach-Object { Write-Host $_ -ForegroundColor Yellow }
+            Write-Host ""
+        }
+
+        # Export du rapport d'anomalies
+        $dossier     = Split-Path -Parent $manifestRef
+        $rapportPath = Join-Path $dossier "rapport_anomalies_$(Get-Date -Format 'yyyyMMdd_HHmmss').txt"
+        ($erreurs + $absents + $manquants) | Out-File $rapportPath -Encoding UTF8
+        Write-Host "  Rapport exporte : $rapportPath" -ForegroundColor Yellow
+    }
+
+    Pause-Retour
+}
+
+# ---- Option 3 : Manuel d'utilisation -----------------------------------------
+
+function Show-Manuel {
+    Show-Header
+    Write-Host "  MANUEL D'UTILISATION" -ForegroundColor Cyan
+    Write-Host "  ----------------------------------------------------------------" -ForegroundColor DarkGray
+    Write-Host ""
+    Write-Host "  OBJECTIF" -ForegroundColor White
+    Write-Host "  Garantir l'integrite cryptographique des donnees transferees" -ForegroundColor DarkGray
+    Write-Host "  sur un disque dur externe chiffre (BitLocker / VeraCrypt)." -ForegroundColor DarkGray
+    Write-Host ""
+    Write-Host "  ETAPE 1 — CHEZ L'EXPEDITEUR" -ForegroundColor Green
+    Write-Host "  a) Chiffrer le disque externe avec BitLocker (AES-256)." -ForegroundColor DarkGray
+    Write-Host "  b) Copier les donnees sur le disque chiffre." -ForegroundColor DarkGray
+    Write-Host "  c) Lancer ce script > Option 1 > Generer un manifeste." -ForegroundColor DarkGray
+    Write-Host "     - Source  : lettre du disque chiffre (ex. I:\)" -ForegroundColor DarkGray
+    Write-Host "     - Sortie  : chemin du fichier .txt (ex. D:\manifeste.txt)" -ForegroundColor DarkGray
+    Write-Host "  d) Noter l'empreinte SHA-256 du manifeste affichee a la fin." -ForegroundColor DarkGray
+    Write-Host ""
+    Write-Host "  ETAPE 2 — TRANSMISSION (3 canaux separes obligatoires)" -ForegroundColor Yellow
+    Write-Host "  Canal 1 : Disque dur chiffre       > courrier / remise en mains propres" -ForegroundColor DarkGray
+    Write-Host "  Canal 2 : Cle USB (cle de recup.)  > envoi separe du disque" -ForegroundColor DarkGray
+    Write-Host "  Canal 3 : Passphrase + empreinte   > Signal ou verbal uniquement" -ForegroundColor DarkGray
+    Write-Host ""
+    Write-Host "  ETAPE 3 — CHEZ LE DESTINATAIRE" -ForegroundColor Cyan
+    Write-Host "  a) Deverrouiller le disque avec BitLocker." -ForegroundColor DarkGray
+    Write-Host "  b) Recevoir le fichier manifeste .txt de l'expediteur." -ForegroundColor DarkGray
+    Write-Host "  c) Lancer ce script > Option 2 > Verifier un manifeste." -ForegroundColor DarkGray
+    Write-Host "     - Disque     : lettre du disque recu (ex. E:\)" -ForegroundColor DarkGray
+    Write-Host "     - Manifeste  : chemin du fichier .txt recu" -ForegroundColor DarkGray
+    Write-Host "     - Empreinte  : valeur transmise par l'expediteur (coller)" -ForegroundColor DarkGray
+    Write-Host "  d) Le script compare automatiquement et affiche le resultat." -ForegroundColor DarkGray
+    Write-Host ""
+    Write-Host "  RESULTAT" -ForegroundColor White
+    Write-Host "  VERT  = transfert integre, aucune modification detectee." -ForegroundColor Green
+    Write-Host "  ROUGE = anomalie detectee, contacter l'expediteur." -ForegroundColor Red
+    Write-Host ""
+    Write-Host "  ----------------------------------------------------------------" -ForegroundColor DarkGray
+    Write-Host "  ALGORITHMES UTILISES" -ForegroundColor White
+    Write-Host "  Hachage    : SHA-256 via CertUtil (natif Windows)" -ForegroundColor DarkGray
+    Write-Host "  Chiffrement: AES-256 BitLocker (NIST FIPS 140-3)" -ForegroundColor DarkGray
+    Write-Host "  Conformite : NIST SP 800-111 / SP 800-57 / ISO 27001 A.8.24" -ForegroundColor DarkGray
+    Write-Host "  ----------------------------------------------------------------" -ForegroundColor DarkGray
+
+    Pause-Retour
+}
+
+# ---- Option 4 : Credits ------------------------------------------------------
+
+function Show-Credits {
+    Show-Header
+    Write-Host "  CREDITS ET CONDITIONS D'UTILISATION" -ForegroundColor Cyan
+    Write-Host "  ----------------------------------------------------------------" -ForegroundColor DarkGray
+    Write-Host ""
+    Write-Host "  Auteur  : M. Jean Yves Mpessa " -ForegroundColor White
+    Write-Host "  Version : 1.0" -ForegroundColor DarkGray
+    Write-Host "  Date    : $(Get-Date -Format 'yyyy')" -ForegroundColor DarkGray
+    Write-Host ""
+    Write-Host "  CONDITIONS D'UTILISATION" -ForegroundColor White
+    Write-Host ""
+    Write-Host "  Ce logiciel est la propriete intellectuelle exclusive de son" -ForegroundColor DarkGray
+    Write-Host "  auteur. Tous droits reserves." -ForegroundColor DarkGray
+    Write-Host ""
+    Write-Host "  Utilisation autorisee :" -ForegroundColor White
+    Write-Host "  - Usage interne strict au sein de l'organisation designee." -ForegroundColor DarkGray
+    Write-Host "  - Dans le cadre exclusif des operations de transfert securise" -ForegroundColor DarkGray
+    Write-Host "    de donnees pour lesquelles cet outil a ete developpe." -ForegroundColor DarkGray
+    Write-Host ""
+    Write-Host "  Utilisations strictement interdites :" -ForegroundColor White
+    Write-Host "  - Reproduction, copie ou distribution a des tiers." -ForegroundColor DarkGray
+    Write-Host "  - Modification du code source sans autorisation ecrite." -ForegroundColor DarkGray
+    Write-Host "  - Utilisation commerciale sous quelque forme que ce soit." -ForegroundColor DarkGray
+    Write-Host "  - Integration dans un autre produit logiciel." -ForegroundColor DarkGray
+    Write-Host "  - Suppression ou modification des mentions de l'auteur." -ForegroundColor DarkGray
+    Write-Host ""
+    Write-Host "  Toute utilisation en dehors du cadre defini ci-dessus" -ForegroundColor DarkGray
+    Write-Host "  constitue une violation des droits de propriete intellectuelle" -ForegroundColor DarkGray
+    Write-Host "  et peut faire l'objet de poursuites judiciaires." -ForegroundColor DarkGray
+    Write-Host ""
+    Write-Host "  ----------------------------------------------------------------" -ForegroundColor DarkGray
+
+    Pause-Retour
+}
+
+# ---- Boucle principale du menu -----------------------------------------------
+
+do {
+    Show-Menu
+    $choix = (Read-Host "  Votre choix").Trim()
+
+    switch ($choix) {
+        "1" { Invoke-GenererManifeste }
+        "2" { Invoke-VerifierManifeste }
+        "3" { Show-Manuel }
+        "4" { Show-Credits }
+        "5" {
+            Clear-Host
+            Write-Host ""
+            Write-Host "  Au revoir." -ForegroundColor DarkGray
+            Write-Host ""
+            exit
+        }
+        default {
+            Write-Host ""
+            Write-Host "  Choix invalide. Entrez un numero entre 1 et 5." -ForegroundColor Red
+            Start-Sleep -Seconds 1
+        }
+    }
+} while ($true)
