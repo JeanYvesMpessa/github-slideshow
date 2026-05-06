@@ -1,0 +1,441 @@
+Liste de vérification de la conformité – Fournisseur infonuagique – Profil B
+
+
+Table des matières
+1.	Identification du fournisseur	2
+2.	Profil infonuagique	2
+3.	Contrôle d’accès	2
+4.	Vérification et responsabilité	5
+5.	Journalisation de l’infrastructure	6
+6.	Surveillance	7
+7.	Identification et authentification	7
+8.	Protection des comptes racines	10
+9.	Protection des systèmes et des communications	10
+10.	Sécurité réseau	12
+11.	Intégrité de l’information et de systèmes	13
+12.	Protection des données	14
+13.	Sauvegarde	14
+14.	Protection des points de terminaison et gestion des vulnérabilités	15
+
+ 
+1.	Identification du fournisseur
+Identification du fournisseur
+Fournisseur
+Société	
+Répondant
+Nom	
+Prénom	
+Téléphone et poste	
+Courriel	
+2.	Profil infonuagique
+Profil infonuagique
+No	Vérification	Réponse/Commentaire
+1.		Modèles de service infonuagique utilisés	☐ IaaS (Infrastructure as a Service)
+☐ PaaS (Platform as a Service)
+☐ SaaS (Software as a Service)
+
+2.		Profil de contrôles de sécurité utilisés	☐ Profil A: données non sensibles
+☐ Profil B: données sensibles
+
+3.	Contrôle d’accès 
+Contrôle d’accès
+No.	Vérification	Réponse	Réponse/Commentaire
+3.		Avez-vous une politique de contrôle d’accès documentée, ainsi que diffusée à tous vos employés et partenaires? Indiquer la fréquence que vous avez pour examiner et mettre à jour la politique.	Choisissez un élément.
+
+4.		Avez-vous des procédures pour faciliter la mise en œuvre de la politique de contrôle d’accès? Indiquer la fréquence que vous avez pour examiner et mettre à jour ces procédures.	Choisissez un élément.
+
+5.		Cocher ci-dessous les types de comptes du système d’information que votre organisation a établi et sélectionné?
+☐ Individuel
+☐ Partagé
+☐ System
+☐ Service
+☐ Urgent
+☐ Développeur/manufacturier/vendeur
+☐ Temporaire
+☐ Invité/anonyme
+☐ Groupe
+☐ Autres : ____________________
+	
+6.		Avez-vous une procédure pour créer, activer, modifier, désactiver et retirer les comptes du système d’information?	Choisissez un élément.
+
+7.		Surveillez-vous l’utilisation de tous les comptes du système d’information? Si oui, Indiquer le type de comptes qui sont surveillés.	Choisissez un élément.
+
+8.		Avez-vous mis en place un processus ou une procédure pour examiner les comptes pour assurer leur conformité avec les exigences de gestion de comptes?	Choisissez un élément.
+
+9.		Avez-vous mis en place un processus pour la réattribution de comptes partages/groupe (s’ils sont déployés) et des mécanismes pour assurer l’imputabilité des actions effectués?	Choisissez un élément.
+
+10.		Avez-vous mis en place des mécanismes automatisés pour appuyer la gestion des comptes de votre système d’information, tels que :
+•	Retire automatiquement les comptes temporaires, s’ils sont déployés? Indiquer le délai.
+•	Désactive automatiquement les comptes d’urgence, s’ils sont déployés? Indiquer le délai.
+•	Désactive automatiquement les comptes inactifs? Indiquer le délai.
+•	Vérifie automatiquement les activités de création, de modification, d’activation, de désactivation et de retrait des comptes, et envoie des avis?
+•	Ferme une session après un délai d’inactivité? Indiquer le délai.
+•	Permet l’utilisation des comptes partagés et de group?	Choisissez un élément.
+
+11.		Avez-vous défini les rôles des utilisateurs dans l’infonuagique (rôles d’entreprise) en vous basant sur le principe de séparation des tâches incompatibles?	Choisissez un élément.
+
+12.		Avez-vous défini les rôles d’accès aux ressources (rôles applicatifs) en se basant sur le principe d’octroyer l’accès aux données que l’utilisateur a besoin de savoir dans le cadre de leur mission (moindre privilège)? 	Choisissez un élément.
+
+13.		Avez-vous une procédure formelle d’autorisation d’accès aux fonctions de sécurité et aux renseignements reliés à la sécurité?	Choisissez un élément.
+
+14.		Exige-vous aux utilisateurs de comptes ou des rôles de système d’information qui ont accès aux fonctions de sécurité et à l’information sur la sécurité qu’ils doivent utiliser des comptes ou des rôles non-privilégiés pour accéder à des fonctions qui ne sont pas liées à la sécurité?	Choisissez un élément.
+
+15.		Restreignez-vous les comptes privilégiés sur le système d’information aux personnel dûment autorisé?	Choisissez un élément.
+
+16.		Est-ce que le système d’information journalise (audit) l’exécution de fonctions privilégiés?	Choisissez un élément.
+
+17.		Prévenez-vous que les utilisateurs non-privilégiés exécutent des fonctions privilégiées, y compris la désactivation, le contournement ou la modification des mesures de protection et contremesures de sécurité en place?	Choisissez un élément.
+
+18.		Avez-vous mis en place des mécanismes qui contrôlent les tentatives infructueuses d’ouverture de session consécutives par utilisateur sur le système d’information ? Si oui, Indiquer les mesures de contrôle en réponse aux tentatives infructueuses d’ouverture de session que votre système d’information applique.	Choisissez un élément.
+
+19.		Lors d'une connexion (accès) réussie au système d’information, avez-vous mis en place des mécanismes pour notifier l’utilisateur :
+•	Le jour et l'heure de leur précédant connexion réussi (accès) ?
+•	La quantité de tentatives infructueuses de connexion précédentes ?	Choisissez un élément.
+
+20.		Avez-vous mis en place des mécanismes pour empêcher toute autre accès au système d’information en verrouillant la session après délai d’inactivité? Indiquer le délai.	Choisissez un élément.
+
+21.		Au moyen du verrouillage de session, le système d’information utilise-t-il une image visible afin de masquer l’information qui était visible auparavant sur l’affichage?	Choisissez un élément.
+
+22.		Avez-vous établi des restrictions d’utilisation, des exigences de configuration, ainsi que des directives de mise en œuvre sur l’accès à distance? Indiquer si vous autorisez l’accès à distance aux systèmes d’information.	Choisissez un élément.
+
+23.		Est-ce que votre système d’information :
+•	Surveille et contrôle les méthodes d’accès à distance?
+•	Met en œuvre des mécanismes cryptographiques pour protéger la confidentialité et l’intégrité des sessions d’accès à distance?
+•	Achemine tous les accès à distance au moyen de points de contrôle d’accès réseau gérés?	Choisissez un élément.
+
+24.		Avez-vous une procédure pour autoriser l’exécution des commandes privilégiés et l’accès à l’information liée à la sécurité?	Choisissez un élément.
+
+25.		Avez-vous des mécanismes qui assurent que les utilisateurs à distance protègent l’information contre toute utilisation et divulgation non autorisées?	Choisissez un élément.
+
+26.		Avez-vous établi des restrictions d’utilisation, des exigences de configuration, ainsi que des directives de mise en œuvre de l’accès sans fil? Indiquer si vous autorisez l’accès sans fil aux systèmes d’information.	Choisissez un élément.
+
+27.		Protégez-vous l’accès sans fil des utilisateurs au moyen de l’authentification et du chiffrement ou de tout autre moyen?	Choisissez un élément.
+
+28.		Désactivez-vous les capacités de réseautage sans fil intégrées aux composants du système d’information avant leur remise et leur déploiement?	Choisissez un élément.
+
+29.		Avez-vous établi des restrictions d’utilisation, des exigences de configuration, ainsi que des directives de mise en œuvre des dispositifs mobiles? Indiquer si vous autorisez la connexion des dispositifs mobiles aux systèmes d’information.	Choisissez un élément.
+
+30.		Est-ce que votre organisation interdit l'utilisation de systèmes d'information, de composants de système ou d'appareils n'appartenant pas à l'organisation pour traiter, stocker ou transmettre des informations organisationnelles?	Choisissez un élément.
+
+4.	Vérification et responsabilité
+Audit et responsabilité
+No.	Vérification	Réponse	Réponse/Commentaire
+31.		Avez-vous une politique d’audit et de responsabilité documentée, ainsi que diffusée à tous vos employés et partenaires? Indiquer la fréquence que vous avez pour examiner et mettre à jour la politique.	Choisissez un élément.
+
+32.		Avez-vous des procédures pour faciliter la mise en œuvre de la politique d’audit et de responsabilité? Indiquer la fréquence que vous avez pour examiner et mettre à jour ces procédures.	Choisissez un élément.
+
+33.		Avez-vous déterminé la liste d’événements auditables du système d’information? Fournir la liste.	Choisissez un élément.
+
+34.		Examinez-vous et mettez-vous à jour fréquemment les événements auditables? Si oui, indiquer la fréquence.	Choisissez un élément.
+
+35.		Est-ce que le système d’information génère des enregistrements d’audit qui contiennent de l’information permettant d’établir le type d’événement qui s’est produit, le moment où il s’est produit, l’endroit où il s’est produit, sa source, son résultat ainsi que l’identité de toutes les personnes ou de tous les sujets qui lui sont associés?	Choisissez un élément.
+
+36.		Transférez-vous les enregistrements d’audit dans un système ou un support qui est différent du système faisant l’objet de la vérification? Indiquer la fréquence.	Choisissez un élément.
+
+37.		Est-ce que le système d’information envoi des alertes en cas d’échecs de l’audit ? Si oui, indiquer les mesures à prendre en cas d’échec.	Choisissez un élément.
+
+38.		Avez-vous une procédure en place pour examiner et analyser les enregistrements d’audit du système d’information pour détecter des activités inappropriées, malicieuses ou inhabituelles?	Choisissez un élément.
+
+39.		Utilisez-vous des mécanismes automatisés centralisés (par exemple SIEM) pour intégrer les processus d’examen, d’analyse et de rapports d’audit afin de soutenir les processus organisationnels d’enquête et d’intervention en cas d’activités suspectes?	Choisissez un élément.
+
+40.		Est-ce que le système d’information synchronise ses horloges avec un système de synchronisation de temps standard?	Choisissez un élément.
+
+41.		Est-ce que le système d’information protège l’information d’audit et les outils d’audit contre l’accès, la modification et la suppression non autorisés?	Choisissez un élément.
+
+42.		Est-ce que le système d’information protège (sauvegarde) l’information des enregistrements d’audit ?	Choisissez un élément.
+
+43.		Restreignez-vous l’accès à la fonction de gestion de l’audit uniquement aux utilisateurs dûment autorisés?	Choisissez un élément.
+
+44.		Avez-vous une politique de conservation sur les enregistrements d’audit du système?	Choisissez un élément.
+
+45.		Est-ce que le système d’information permet de sélectionner les événements auditables qui doivent être enregistrés? 	Choisissez un élément.
+
+5.	Journalisation de l’infrastructure
+Journalisation
+No.	Vérification	Réponse	Réponse/Commentaire
+46.		Avez-vous activé la journalisation pour les ressources dans le nuage ? Les journaux à collecter englobent :
+•	Journaux d’infrastructure ;
+•	Journaux de BD
+•	Journaux applicatifs ;
+•	Journaux des API ;
+•	Journaux de sécurité et d’accès ;
+•	etc.	Choisissez un élément.
+
+47.		Avez-vous restreint les accès des journaux aux personnes dûment autorisées (l’exploitation ne doit pas avoir accès aux journaux) ?	Choisissez un élément.
+
+48.		Rendez-vous disponible les journaux de l’infrastructure lors d’une enquête de sécurité ?	Choisissez un élément.
+
+49.		Avez-vous l’option de configurer la rétention du stockage des journaux de sécurité selon la politique de rétention des clients ?	Choisissez un élément.
+
+6.	Surveillance
+Surveillance
+No.	Vérification	Réponse	Réponse/Commentaire
+50.		Avez-vous déployé et configuré une solution qui surveille votre environnement infonuagique et vous fournissant à temps quasi réel des informations pour vous permettre d’améliorer entre autres la posture de sécurité, l’optimisation des coûts et la performance?	Choisissez un élément.
+
+51.		Avez-vous déployé une solution SIEM couplée à une solution de journalisation centralisée pour analyser à temps quasi réel les journaux afin de détecter entre autres les traces d’attaques pour générer des alertes et des réponses?	Choisissez un élément.
+
+52.		Avez-vous déployé une solution automatisée pour surveiller les configurations apportées aux ressources et alerter des personnes identifiées lorsque des changements sont détectés ?	Choisissez un élément.
+
+53.		Utilisez-vous un outil de découverte des actifs déployés dans le nuage afin de détecter les ressources non autorisées dans le nuage ?	Choisissez un élément.
+
+7.	Identification et authentification
+Identification et authentification
+No.	Vérification	Réponse	Réponse/Commentaire
+54.		Avez-vous une politique d’identification et d’authentification documentée, et diffusée à tous vos employés et partenaires? Indiquer la fréquence d’examen et de mise à jour de cette politique.	Choisissez un élément.
+
+55.		Avez-vous des procédures pour faciliter la mise en œuvre de la politique d’indentification et d’authentification? Indiquer la fréquence que vous avez pour examiner et mettre à jour ces procédures.	Choisissez un élément.
+
+56.		Est-ce que votre système d’information identifie et authentifie les utilisateurs, ou les processus exécutés en leur nom, de façon unique?	Choisissez un élément.
+
+57.		Pour l’accès réseau, est-ce que votre système d’information applique l’authentification multifactorielle (MFA) aux comptes privilégiés?	Choisissez un élément.
+
+58.		Pour l’accès local aux serveurs, est-ce que votre système d’information applique l’authentification multifactorielle aux comptes privilégiés?	Choisissez un élément.
+
+59.		Pour l’authentification multifactorielle, est-ce qu’un des facteurs utilisés par le système d’information est fourni par un dispositif distinct du système demandant l’accès?	Choisissez un élément.
+
+60.		Le système d’information utilise des mécanismes d’authentification résistants à la réinsertion pour l’accès réseau aux comptes privilégiés?	Choisissez un élément.
+
+61.		Le système d’information applique des mécanismes d’authentification résistants à la réinsertion pour l’accès réseau aux comptes non privilégiés?	Choisissez un élément.
+
+62.		Le système d’information utilise l’authentification multifactorielle pour l’accès à distance aux comptes privilégiés et non privilégiés?	Choisissez un élément.
+
+63.		Le système d’information identifie et authentifie, de manière unique, des dispositifs avant d’établir une connexion locale, à distance ou réseau?	Choisissez un élément.
+
+64.		Le système d’information identifie et authentifie des dispositifs avant d’établir une ou plusieurs connexions en utilisant l’authentification bidirectionnelle reposant sur la cryptographie?	Choisissez un élément.
+
+65.		Avez-vous implémenté une politique de gestion de mots de passe robuste qui entre autres intègre minimalement les exigences suivantes :
+•	Définir et appliquer des exigences de complexité des mots de passe.
+•	Empêcher les utilisateurs de choisir les mots de passe vulnérables.
+•	Ne stocker et ne transmettre que les mots de passe protégés par cryptographie.
+•	Exiger que les mots de passe soient modifiés périodiquement.
+•	Empêcher les utilisateurs de choisir des mots de passe précédemment utilisés après un délai prédéfini.
+•	Comparer les mots de passe aux listes des mots de passe les plus courants ou particulièrement faibles.	Choisissez un élément.
+
+66.		Utilisez-vous l’authentification fondée sur l’infrastructure à clé privée (ICP)	Choisissez un élément.
+
+67.		Utilisez-vous des outils automatisés pour déterminer si les authentifiants sont suffisamment robustes?	Choisissez un élément.
+
+68.		Protégez-vous les authentifiants au niveau de sécurité qui correspond à la catégorie de sécurité de l’information à laquelle l’authentifiant permet l’accès?	Choisissez un élément.
+
+69.		Pouvez-vous assurer que des authentifiants statiques non chiffrés ne sont pas intégrés à des applications ou à des scripts d’accès, ni activés par des touches de fonction?	Choisissez un élément.
+
+70.		Le système d’information utilise des mécanismes d’authentification par jeton matériel sécuritaires?	Choisissez un élément.
+
+71.		Le système d’information met en œuvre des mécanismes d’authentification auprès d’un module cryptographique qui est conforme aux standards internationaux de sécurité tel que FIPS 140-2 pour HSM ?	Choisissez un élément.
+
+72.		Utilisez-vous un annuaire centralisé pour la gestion des identités de tous les utilisateurs dans le nuage ?	Choisissez un élément.
+
+73.		Utilisez-vous l’authentification multi facteur (MFA) pour les comptes à privilèges élevés (administrateurs) des utilisateurs internes et des clients? Si oui, indiquer les types d’utilisateurs avec MFA.	Choisissez un élément.
+
+74.		Utilisez-vous l’authentification multi facteur (MFA) pour les comtes qui ont des rôles de surveillance (global, de facturation, de sécurité, opérationnel, etc.)?	Choisissez un élément.
+
+75.		Avez-vous déployé une solution PAM (Privileged Access Management) pour journaliser et surveiller les accès des utilisateurs à privilège élevé ?	Choisissez un élément.
+
+76.		Avez-vous mis en place un processus pour la demande, l’approbation, l’autorisation et le retrait des accès pour les utilisateurs ? 	Choisissez un élément.
+ 
+77.		Avez-vous configuré votre solution GIA (Gestion des identités et des accès) pour qu’elle n’utilise que les protocoles modernes et récents non vulnérables (Exemple : SAML 2.0, OpenID Connect, OAuth 2.0, etc.) ?	Choisissez un élément.
+ 
+78.		Avez-vous implémenté une politique de gestion de mots de passe robuste qui entre autres intègre minimalement les exigences suivantes :
+•	Définir et appliquer des exigences de complexité des mots de passe.
+•	Empêcher les utilisateurs de choisir les mots de passe vulnérables.
+•	Ne stocker et ne transmettre que les mots de passe protégés par cryptographie.
+•	Exiger que les mots de passe soient modifiés périodiquement.
+•	Empêcher les utilisateurs de choisir des mots de passe précédemment utilisés après un délai prédéfini.
+•	Comparer les mots de passe aux listes des mots de passe les plus courants ou particulièrement faibles.	Choisissez un élément.
+
+79.		Interdisez-vous l’utilisation des authentifiants en cache ?	Choisissez un élément.
+
+80.		Avez-vous mis en place des mécanismes de protection contre les attaques de mot de passe?	Choisissez un élément.
+
+81.		Suivez-vous un principe tel que celui-ci pour l’octroi des droits d’accès aux utilisateurs :
+•	Assigner les utilisateurs aux rôles d’entreprises.
+•	Assigner les rôles applicatifs aux rôles d’entreprises.	Choisissez un élément.
+
+82.		Journalisez-vous les actions des utilisateurs et avez-vous activé les notifications pour les activités suspectes ?	Choisissez un élément.
+ 
+83.		Avez-vous établi un calendrier d’audit ou de révision des accès des utilisateurs ?	Choisissez un élément.
+
+8.	Protection des comptes racines
+Protection des comptes racines
+No.	Vérification	Réponse	Réponse/Commentaire
+84.		Avez-vous une procédure pour supprimer l’accès aux comptes racines?	Choisissez un élément.
+
+85.		Avez-vous mis en place un processus pour gérer l’utilisation du compte racine et des comptes d’accès urgents? 
+Ce processus doit inclure un minimum de deux comptes d’accès urgent « brise-glace ». Ces comptes doivent respecter, entre autres, les exigences suivantes :
+•	Ils doivent avoir les mêmes accès que le compte racine.
+•	Ils doivent utiliser des mécanismes d’authentification différents de ceux utilisés pour les autres comptes à privilège élevé.
+o	Au moins un des comptes d’accès urgent doit avoir un mécanisme d’authentification MFA différents des autres comptes d’accès urgent.
+o	Exclure au moins un compte d’accès urgent du mécanisme d’authentification adaptative.
+•	Les informations d’identification ne doivent pas expirer ou faire partie d’un processus automatisé de mise à jour des accès.
+•	Les droits d’accès octroyés à ces comptes doivent être permanents.
+•	Conserver de manière sécuritaire les informations d’identification de ces comptes.
+•	Journaliser, surveiller et auditer les connexions et activités de ces comptes.	Choisissez un élément.
+
+86.		Avez-vous mis en place une procédure pour assurer que tous les mots de passe par défaut sont modifiés?	Choisissez un élément.
+
+9.	Protection des systèmes et des communications
+Protection des systèmes et des communications
+No.	Vérification	Réponse	Réponse/Commentaire
+87.		Avez-vous une politique de protection de systèmes et des communications documentée, ainsi que diffusée à tous vos employés et partenaires? Indiquer la fréquence que vous avez pour examiner et mettre à jour la politique.	Choisissez un élément.
+
+88.		Avez-vous des procédures pour faciliter la mise en œuvre de la politique de protection des systèmes et des communications? Indiquer la fréquence que vous avez pour examiner et mettre à jour ces procédures.	Choisissez un élément.
+
+89.		Est-ce que votre système d’information sépare la fonctionnalité de l’utilisateur (y compris les services d’interface utilisateur) de la fonctionnalité de gestion du système d’information?	Choisissez un élément.
+
+90.		Est-ce que votre système d’information empêche tout transfert d’information non autorisé et involontaire découlant du partage des ressources du système?	Choisissez un élément.
+
+91.		Est-ce que votre système d’information assure une protection contre des attaques par déni de service?	Choisissez un élément.
+
+92.		Avez-vous un nombre limité de points de connexion réseau externes au système d’information qui sont sécurisés, surveillés et contrôles?	Choisissez un élément.
+
+93.		Est-ce que votre système d’information, en conjonction avec un dispositif éloigné, empêche que celui-ci établisse simultanément des connexions à des ressources locales du système et à d’autres ressources de réseaux externes?	Choisissez un élément.
+
+94.		Est-ce que votre système d’information achemine le trafic de communications interne vers des réseaux externes à travers des serveurs mandataires authentifiés à proximité des interfaces gérées.	Choisissez un élément.
+
+95.		Avez-vous mis en œuvre des mécanismes de protection de la frontière au niveau de l’hôte?	Choisissez un élément.
+
+96.		Avez-vous isolé les outils, mécanismes et composants de soutien à la sécurité de l’information des autres composants internes du système d’information par l’implantation de sous réseaux physiques distincts?	Choisissez un élément.
+
+97.		Est-ce que votre système d’information passe en mode de fonctionnement à sécurité intégrée (fail secure) dans l’éventualité d’une défaillance opérationnelle d’un dispositif de protection des frontières?	Choisissez un élément.
+
+98.		Est-ce que votre système d’information applique des mécanismes cryptographiques pour prévenir la divulgation non autorisée d’information et détecter les modifications apportées à l’information en cours de transmission?	Choisissez un élément.
+
+99.		Est-ce que votre système d’information met un terme à toute connexion réseau associée à une session de communications à la fin de la session ou après un délai d’inactivité?	Choisissez un élément.
+
+100.		Avez-vous un processus de gestion de clés cryptographiques (génération, distribution, stockage, disponibilité et destruction des clés) pour les fonctions de cryptographie requises par le système d’information?	Choisissez un élément.
+
+101.		Émettez-vous des certificats à clé publique ou les obtient auprès d’un fournisseur de services autorisé?	Choisissez un élément.
+
+102.		Est-ce que votre organisation autorise, surveille et contrôle l’utilisation de code mobile dans le système d’information?	Choisissez un élément.
+
+103.		Est-ce que votre système d’information protège l’authenticité des sessions de transmission?	Choisissez un élément.
+
+104.		Est-ce que votre système d’information invalide les identificateurs de session, lorsque l’utilisateur ferme sa session ou lorsque la session s’est terminée autrement?	Choisissez un élément.
+
+105.		Est-ce que votre système d’information génère un identificateur de session unique pour chaque session et reconnaît uniquement les identificateurs qu’il a générés?	Choisissez un élément.
+
+106.		Est-ce que votre système d’information protège la confidentialité et l’intégrité de l’information inactive avec des mécanismes cryptographiques?	Choisissez un élément.
+
+10.	Sécurité réseau 
+Sécurité réseau
+No.	Vérification	Réponse	Réponse/Commentaire
+107.		Avez-vous défini vos propres réseaux virtuels pour intégrer vos ressources dans le nuage externe ?	Choisissez un élément.
+
+108.		Avez-vous découpé (au meilleur des cas, utiliser la micro-segmentation) logiquement vos réseaux en sous-réseaux afin de mieux contrôler les accès aux ressources?	Choisissez un élément.
+
+109.		Avez-vous défini des zones réseau différentes pour les données non sensibles et les données sensibles ?	Choisissez un élément.
+
+110.		Avez-vous déployé des réseaux de périphéries (sous-réseau public, DMZ, etc.) pour ajouter une couche de sécurité supplémentaire entre vos actifs qui feront face à Internet ?	Choisissez un élément.
+
+111.		Avez-vous déployé une connectivité sécurisée (VPN, Connexion directe, etc.) entre votre réseau sur site et le nuage externe?	Choisissez un élément.
+
+112.		Filtrez-vous les communications entre les zones réseau de votre environnement infonuagique ? 	Choisissez un élément.
+
+113.		Maintenez-vous une documentation des configurations des règles de filtrage du trafic réseau ?	Choisissez un élément.
+
+114.		Avez-vous déployé une solution pour protéger vos applications Web minimalement contre les attaques de type top 10 d’OWASP avec un pare-feu applicatif ?	Choisissez un élément.
+
+115.		Protégez-vous vos ressources contre les attaques de type déni de service et déni de service distribué ?	Choisissez un élément.
+
+116.		Avez-vous fermé l’accès aux ports de gestion tels que RDP et SSH depuis Internet ?	Choisissez un élément.
+
+117.		Avez-vous déployé une solution de détection ou de prévention d’intrusion ?	Choisissez un élément.
+
+11.	Intégrité de l’information et de systèmes
+Intégrité de l’information et des systèmes
+No.	Vérification	Réponse	Réponse/Commentaire
+118.		Avez-vous une politique d’intégrité de systèmes et de l’information documentée, ainsi que diffusée à tous vos employés et partenaires? Indiquer la fréquence que vous avez pour examiner et mettre à jour la politique.	Choisissez un élément.
+
+119.		Avez-vous des procédures pour faciliter la mise en œuvre de la politique d’intégrité de systèmes et de l’information? Indiquer la fréquence que vous avez pour examiner et mettre à jour ces procédures.	Choisissez un élément.
+
+120.		Avez-vous un processus de gestion de correctifs de sécurité qui permet corriger les défauts dans un délai défini après la diffusion des mises à jour? Indiquer le délai de correction.	Choisissez un élément.
+
+121.		Utilisez-vous fréquemment des mécanismes automatisés pour déterminer l’état des composants du système d’information en ce qui concerne la correction des défauts?	Choisissez un élément.
+
+122.		Utilisez-vous des mécanismes de protection contre les codes malveillants aux points d’entrée et de sortie du système d’information afin de détecter et d’éradiquer les codes malveillants?	Choisissez un élément.
+
+123.		Surveillez-vous le système d’information pour y détecter des attaques et des signes indiquant de possibles attaques et des connexions locales, réseau ou à distance non autorisées?	Choisissez un élément.
+
+124.		Utilisez-vous des outils automatisés pour prendre en charge l’analyse des événements en temps quasi réel?	Choisissez un élément.
+
+125.		Surveillez-vous le trafic de communications entrantes et sortantes pour détecter toute activité ou condition inhabituelle ou non autorisée dans le système d’information?	Choisissez un élément.
+
+126.		Est-ce que le système d’information produit des alertes lorsque les indications de compromission réelle ou potentielle se présentent?	Choisissez un élément.
+
+127.		Employez-vous des outils de vérification pour détecter des changements non autorisés dans les logiciels, micrologiciels et l’information du système d’information? Indiquer la fréquence de vérification.	Choisissez un élément.
+
+128.		Utilisez-vous des mécanismes de protection antipourriel aux points d’entrée et de sortie du système d’information pour détecter (et intervenir, le cas échéant) les messages non sollicités?	Choisissez un élément.
+
+129.		Est-ce que le système d’information génère des messages d’erreur qui fournissent les informations nécessaires à l’application de mesures correctives sans toutefois révéler des informations qui pourraient être exploitées par des adversaires?	Choisissez un élément.
+
+12.	Protection des données 
+Protection des données
+No.	Vérification	Réponse	Réponse/Commentaire
+130.		Est-ce que les données de votre système sont hébergées dans des régions autres que Canada et l’Union européenne ?	Choisissez un élément.
+
+131.		Chiffrez-vous les données sensibles au repos avec des algorithmes et des clés de chiffrement robustes et non vulnérables ?	Choisissez un élément.
+
+132.		Chiffrez-vous les données en transit en utilisant des algorithmes, des protocoles et des clés de chiffrements robustes et non vulnérables ? 	Choisissez un élément.
+
+133.		Utilisez-vous minimalement la version 1.2 de TLS pour chiffrer les communications en transit appropriées ?	Choisissez un élément.
+
+134.		Avez-vous désactivé tous les algorithmes vulnérables connus?	Choisissez un élément.
+
+135.		Gérez-vous tous les secrets (clés de chiffrements, chaînes, les informations de connexion, etc.) dans une solution de gestion de secrets conforme à la norme FIPS-140-2 ?	Choisissez un élément.
+
+136.		Utilisez-vous un algorithme de hachage robuste conforme à la norme FIPS-180-4?	Choisissez un élément.
+
+137.		Avez-vous mis en place un processus de gestion de clés qui suivre les recommandations du NIST SP 800-57 Part 1 Rev. 5 ? 	Choisissez un élément.
+
+138.		Avez-vous défini une stratégie pour renouveler les secrets conformément à leur cycle de vie ?	Choisissez un élément.
+
+139.		Utilisez-vous vos propres clés pour chiffrer les données sensibles dans le nuage ? 	Choisissez un élément.
+
+140.		Conservez-vous vos secrets dans des voûtes ou des solutions HSM configurées de telle manière que ce soient uniquement les personnes ou applications autorisées de l’organisation pourront accéder aux secrets ?	Choisissez un élément.
+
+141.		Gérez-vous les ressources à partir des stations de travail convenablement sécurisées ?	Choisissez un élément.
+
+13.	Sauvegarde
+Sauvegarde
+No.	Vérification	Réponse	Réponse/Commentaire
+142.		Avez-vous défini et planifié des stratégies de sauvegarde et de récupération pour les données en infonuagique ?	Choisissez un élément.
+
+143.		Êtes-vous assuré que les données de sauvegarde en infonuagique seront chiffrées et que l’organisation possède les clés de chiffrement ?	Choisissez un élément.
+
+144.		Avez-vous planifié des tests de restauration périodique de la sauvegarde en infonuagique et êtes-vous assuré que les clés de chiffrement peuvent également être restaurées ?	Choisissez un élément.
+
+14.	Protection des points de terminaison et gestion des vulnérabilités
+Protection des points de terminaison et gestion des vulnérabilités
+No.	Vérification	Réponse	Réponse/Commentaire
+145.		Déployez-vous une solution à jour pour protéger les points de terminaison (machines virtuelles et certaines ressources PaaS) contre les logiciels malveillants ? 
+Cocher ci-dessous les fonctions de sécurité intégrées dans la solution contre les logiciels malveillants :
+☐ Pare-feu au niveau hôte
+☐ Protection de l’intégrité et des fichiers critiques (FIM)
+☐ Liste de contrôle des applications
+☐ Protection de la mémoire
+☐ Protection antivirus
+☐ Système de détection ou de prévention d’intrusion au niveau hôte
+☐ EDR (Endpoint Detection and Response) 
+Choisissez un élément.
+
+146.		Avez-vous mise en place une solution de gestion des vulnérabilités et d’automatisation de l’application des rustines de sécurité ?	Choisissez un élément.
+
+147.		Maintenez-vous à jour une liste des vulnérabilités de vos charges de travail ainsi que leurs criticités et la planification pour leur correction ?	Choisissez un élément.
+
+148.		Avez-vous désactivé tous les ports vulnérables et non utilisés ?	Choisissez un élément.
+
+149.		Avez-vous restreint les accès aux ports de gestion des points de terminaison ?	Choisissez un élément.
+
+150.		Avez-vous une procédure de vérification pour assurer qu’aucun service ou application non utilisés ne sera installé sur les charges de travail déployées dans le nuage ?	Choisissez un élément.
+
+
+Complété par :
+Nom :
+Titre :
+Signature :
+Date :
+
+Approuvé et autorisé par :
+Nom du gestionnaire :
+Signature du gestionnaire :
+Date :
